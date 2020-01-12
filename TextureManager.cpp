@@ -1,8 +1,10 @@
+#define STB_IMAGE_IMPLEMENTATION
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "stb_image.h"
-#include "texturemanager.h"
 #include <iostream>
+#include "texturemanager.h"
+#include "stb_image.h"
 
 TextureManager::TextureManager()
 {
@@ -18,13 +20,11 @@ unsigned int TextureManager::loadTexture(char const* path)
 	unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
 	if (data)
 	{
-		GLenum format;
+		GLenum format = GL_RGBA;
 		if (nrComponents == 1)
 			format = GL_RED;
 		else if (nrComponents == 3)
 			format = GL_RGB;
-		else if (nrComponents == 4)
-			format = GL_RGBA;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);

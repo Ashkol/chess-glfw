@@ -1,3 +1,5 @@
+
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 //#include <glm/glm.hpp>
@@ -32,7 +34,7 @@ int main()
 	{
 		return -1;
 	}
-	unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");
+	unsigned int texID = texManager.loadTexture("Assets/Textures/container.png");
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texID);
 
