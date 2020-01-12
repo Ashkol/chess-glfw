@@ -7,6 +7,8 @@
 #include <windows.h>
 #include <string>
 #include "shader.h"
+#include "camera.h"
+#include "texturemanager.h"
 
 const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
@@ -16,10 +18,12 @@ float vertices[] = { -0.5f, -0.8f, 0.0f,
 						-0.5f, 0.5f, 0.0f
 };
 Shader* defaultShader;
+TextureManager texManager;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 GLFWwindow* initializeGLFWWindow();
+Camera* camera;
 
 int main()
 {
@@ -28,6 +32,9 @@ int main()
 	{
 		return -1;
 	}
+	unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texID);
 
 	unsigned int VAO, VBO;
 	glGenVertexArrays(1, &VAO);
