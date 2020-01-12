@@ -41,23 +41,6 @@ int main()
 	unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");
 	Cube board(&camera, texID);
 	initializeCamera();
-	/*glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texID);
-
-	unsigned int VAO, VBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glBindVertexArray(VAO);*/
-
-	//defaultShader = new Shader("vertex.vert", "fragment.frag");
-	
 
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
@@ -67,14 +50,11 @@ int main()
 		// Rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//defaultShader->use();
-		//glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
+
 		board.render(true);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
 
 	glfwTerminate();
 	return 0;

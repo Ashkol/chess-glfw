@@ -5,12 +5,9 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <vector>
 #include <iostream>
 #include "camera.h"
-
-
 
 const float DISTANCE = 5.0f;
 
@@ -27,23 +24,13 @@ public:
 	// Constructor with vectors
 	RotatingCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH, float distance = DISTANCE) : Camera{ position = glm::vec3(0.0f, 0.0f, 0.0f), up = glm::vec3(0.0f, 1.0f, 0.0f), yaw = YAW, pitch = PITCH }
 	{
-		//Position = position;
-		//WorldUp = up;
-		//Yaw = yaw;
-		//Pitch = pitch;
-		//updateCameraVectors();
 		AngleZ = -Yaw;
 		AngleX = Pitch;
-		Distance = DISTANCE;
+		Distance = distance;
 	}
 	// Constructor with scalar values
 	RotatingCamera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch, float distance = DISTANCE) : Camera{ posX, posY, posZ, upX, upY, upZ, yaw, pitch } 
 	{
-		//Position = glm::vec3(posX, posY, posZ);
-		//WorldUp = glm::vec3(upX, upY, upZ);
-		//Yaw = yaw;
-		//Pitch = pitch;
-		//updateCameraVectors();
 		AngleZ = -Yaw;
 		AngleX = Pitch;
 		Distance = distance;
@@ -95,17 +82,12 @@ public:
 		if (Pitch < -89.0f)
 			Pitch = -89.0f;
 
-
 		float x = glm::cos(glm::radians(AngleZ)) * Distance;
 		float z = glm::sin(glm::radians(AngleZ)) * Distance;
 		float y = glm::sin(glm::radians(-Pitch)) * Distance;
 		x *= glm::cos(glm::radians(-Pitch));
 		z *= glm::cos(glm::radians(-Pitch));
 		Position = glm::vec3(x, y, z);
-
-		std::cout << "x = " << x << "z = " << z << "AngleZ = " << AngleZ << "Yaw = " << Yaw << "SIN = " << glm::sin(glm::radians(-Pitch)) << std::endl;
-
-		
 
 		updateCameraVectors();
 	}
