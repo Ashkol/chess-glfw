@@ -12,6 +12,7 @@
 #include "rotatingcamera.h"
 #include "texturemanager.h"
 #include "cube.h"
+#include "objloader.h"
 
 const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
@@ -41,6 +42,8 @@ int main()
 	unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");
 	Cube board(&camera, texID);
 	initializeCamera();
+	ObjectLoader* objLoader = new ObjectLoader();
+	objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
 
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
