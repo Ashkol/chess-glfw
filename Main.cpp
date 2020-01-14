@@ -45,9 +45,22 @@ int main()
 	ObjectLoader* objLoader = new ObjectLoader();
 	objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
 
+	float previousTime = glfwGetTime();
+	int frameCount = 0;
+
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentTime = glfwGetTime();
+		frameCount++;
+		if (currentTime - previousTime >= 1.0f)
+		{
+
+			glfwSetWindowTitle(window, ((std::to_string(1000.0f / frameCount) + "ms to render").c_str()));
+			frameCount = 0;
+			previousTime += 1.0f;
+		}
+
 		// Input
 		processInput(window);
 		// Rendering
