@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8634dff5-f6ce-4809-8771-f2f216d03311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Vertex">
+      <UniqueIdentifier>{dfd16a9f-54e2-4d63-bee7-f357fbe3366e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Fragment">
+      <UniqueIdentifier>{47d6d2c6-4066-4efb-b9d8-bd077f001b55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -38,23 +47,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex.vert">
-      <Filter>Source Files</Filter>
+    <None Include="packages.config" />
+    <None Include="defaultTex.frag">
+      <Filter>Shaders\Fragment</Filter>
     </None>
     <None Include="fragment.frag">
-      <Filter>Source Files</Filter>
+      <Filter>Shaders\Fragment</Filter>
+    </None>
+    <None Include="lighting.frag">
+      <Filter>Shaders\Fragment</Filter>
+    </None>
+    <None Include="vertex.vert">
+      <Filter>Shaders\Vertex</Filter>
+    </None>
+    <None Include="lighting.vert">
+      <Filter>Shaders\Vertex</Filter>
     </None>
     <None Include="default.vert">
-      <Filter>Source Files</Filter>
+      <Filter>Shaders\Vertex</Filter>
     </None>
-    <None Include="defaultTex.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="packages.config" />
-    <None Include="lighting.vert">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="lighting.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">

@@ -85,8 +85,9 @@ int main()
 
 
 		shader.setVec3("lightPos", glm::vec3(10.0f, 8, 5));
-		shader.setVec3("lightColor", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 		shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setVec3("viewPos", camera.Position);
 		shader.use();
 
 
