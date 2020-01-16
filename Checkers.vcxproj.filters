@@ -33,6 +33,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.vert">
@@ -48,6 +51,10 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="lighting.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lighting.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -78,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lighting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

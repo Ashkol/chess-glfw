@@ -46,7 +46,17 @@ int main()
 	//ObjectLoader* objLoader = new ObjectLoader();
 	//objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
 
-	Shader shader("default.vert", "defaultTex.frag");
+	//uniform vec3 lightPos;
+	//uniform vec3 lightColor;
+	//uniform vec3 objectColor;
+
+
+	//Shader shader("default.vert", "defaultTex.frag");
+	Shader shader("lighting.vert", "lighting.frag");
+	
+
+
+
 	Model ourModel("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj");
 	Model model2("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
 	Model model3("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
@@ -72,6 +82,11 @@ int main()
 		shader.setFloat("sample", 1);
 		shader.setFloat("sampleCount", 1);
 		shader.setFloat("textureWidth", 500);
+
+
+		shader.setVec3("lightPos", glm::vec3(10.0f, 8, 5));
+		shader.setVec3("lightColor", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 		shader.use();
 
 
