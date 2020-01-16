@@ -8,11 +8,12 @@
 #include <iostream>
 #include <windows.h>
 #include <string>
+#include <filesystem>
 #include "shader.h"
 #include "rotatingcamera.h"
 #include "texturemanager.h"
 #include "cube.h"
-#include "objloader.h"
+#include "model.h"
 
 const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
@@ -39,11 +40,21 @@ int main()
 	{
 		return -1;
 	}
-	unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");
-	Cube board(&camera, texID);
+	/*unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");*/
+	//Cube board(&camera, texID);
 	initializeCamera();
-	ObjectLoader* objLoader = new ObjectLoader();
-	objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
+	//ObjectLoader* objLoader = new ObjectLoader();
+	//objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
+
+	Shader shader("default.vert", "defaultTex.frag");
+	Model ourModel("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj");
+	Model model2("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
+	Model model3("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
+
+
+
+
+
 
 	float previousTime = glfwGetTime();
 	int frameCount = 0;
@@ -51,6 +62,20 @@ int main()
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		//shader.use();
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 view = camera.GetViewMatrix();
+		glm::mat4 model = glm::mat4(1.0f);
+		shader.setMat4("projection", projection);
+		shader.setMat4("view", view);
+		shader.setMat4("model", model);
+		shader.setFloat("sample", 1);
+		shader.setFloat("sampleCount", 1);
+		shader.setFloat("textureWidth", 500);
+		shader.use();
+
+
+
 		float currentTime = glfwGetTime();
 		frameCount++;
 		if (currentTime - previousTime >= 1.0f)
@@ -66,8 +91,17 @@ int main()
 		// Rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//board.render(true);
+		ourModel.draw(shader);
+		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));	// it's a bit too big for our scene, so scale it down
+		shader.setMat4("model", model);
+		shader.use();
+		model2.draw(shader);
+		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));	// it's a bit too big for our scene, so scale it down
+		shader.setMat4("model", model);
+		shader.use();
+		model3.draw(shader);
 
-		board.render(true);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
