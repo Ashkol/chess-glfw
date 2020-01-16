@@ -84,9 +84,15 @@ int main()
 		shader.setFloat("textureWidth", 500);
 
 
-		shader.setVec3("lightPos", glm::vec3(10.0f, 8, 5));
-		shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setVec3("lightPos", glm::vec3(0, 3, 0));
 		shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		shader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		shader.setFloat("material.shininess", 32.0f);
+		shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+		shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 		shader.setVec3("viewPos", camera.Position);
 		shader.use();
 
