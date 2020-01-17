@@ -11,9 +11,15 @@ class Light
 {
 public:
 	glm::vec3 Position;
-	glm::vec3 Color;
-	float Intensity;
-	Light(glm::vec3 position, glm::vec3 color, float intensity);
+	glm::vec3 Ambient;
+	glm::vec3 Diffuse;
+	glm::vec3 Specular;
+	Light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
 private:
 };
+
+Light::Light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular) : Position(position), Ambient(ambient), Diffuse(diffuse), Specular(specular)
+{
+
+}
 #endif

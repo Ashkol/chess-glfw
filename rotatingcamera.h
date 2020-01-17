@@ -47,6 +47,7 @@ public:
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime)
 	{
+		std::cout << "rotating camera" << std::endl;
 		float angularVelocity = SPEED * deltaTime * 10;
 		if (direction == FORWARD)
 		{

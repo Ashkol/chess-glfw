@@ -14,9 +14,9 @@
 #include "texturemanager.h"
 #include "cube.h"
 #include "model.h"
+#include "utils.h"
+#include "visualizer.h"
 
-const unsigned int SCREEN_WIDTH = 800;
-const unsigned int SCREEN_HEIGHT = 600;
 float vertices[] = { -0.5f, -0.8f, 0.0f,
 						1.0f, -0.5f, 0.0f,
 						0.5f, 0.5f, 0.0f,
@@ -53,17 +53,13 @@ int main()
 
 	//Shader shader("default.vert", "defaultTex.frag");
 	Shader shader("lighting.vert", "lighting.frag");
+	//Model ourModel("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj");
+
+
+
+	Scene scene(camera);
+	Visualizer visualizer(scene);
 	
-
-
-
-	Model ourModel("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj");
-	Model model2("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
-	Model model3("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\gamepiece.obj");
-
-
-
-
 
 
 	float previousTime = glfwGetTime();
@@ -73,28 +69,28 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		//shader.use();
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-		glm::mat4 view = camera.GetViewMatrix();
-		glm::mat4 model = glm::mat4(1.0f);
-		shader.setMat4("projection", projection);
-		shader.setMat4("view", view);
-		shader.setMat4("model", model);
-		shader.setFloat("sample", 1);
-		shader.setFloat("sampleCount", 1);
-		shader.setFloat("textureWidth", 500);
+		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		//glm::mat4 view = camera.GetViewMatrix();
+		//glm::mat4 model = glm::mat4(1.0f);
+		//shader.setMat4("projection", projection);
+		//shader.setMat4("view", view);
+		//shader.setMat4("model", model);
+		//shader.setFloat("sample", 1);
+		//shader.setFloat("sampleCount", 1);
+		//shader.setFloat("textureWidth", 500);
 
 
-		shader.setVec3("lightPos", glm::vec3(0, 3, 0));
-		shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		shader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		shader.setFloat("material.shininess", 32.0f);
-		shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-		shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
-		shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		shader.setVec3("viewPos", camera.Position);
-		shader.use();
+		//shader.setVec3("lightPos", glm::vec3(0, 3, 0));
+		//shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		//shader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		//shader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		//shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		//shader.setFloat("material.shininess", 32.0f);
+		//shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		//shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+		//shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		//shader.setVec3("viewPos", camera.Position);
+		//shader.use();
 
 
 
@@ -114,15 +110,9 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//board.render(true);
-		ourModel.draw(shader);
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));	// it's a bit too big for our scene, so scale it down
-		shader.setMat4("model", model);
-		shader.use();
-		model2.draw(shader);
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));	// it's a bit too big for our scene, so scale it down
-		shader.setMat4("model", model);
-		shader.use();
-		model3.draw(shader);
+		//ourModel.draw(shader);
+		visualizer.render();
+		
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

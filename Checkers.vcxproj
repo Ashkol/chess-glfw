@@ -163,7 +163,6 @@
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="renderer.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="lighting.h" />
     <ClInclude Include="mesh.h" />
@@ -187,6 +187,8 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texturemanager.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="visualizer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
