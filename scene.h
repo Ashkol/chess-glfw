@@ -17,7 +17,8 @@ using namespace std;
 class SceneObject
 {
 public:
-	std::string Name;
+	std::string Name = "";
+	std::string boardCoords = "";
 	glm::vec3 Position;
 	glm::vec3 Scale;
 	glm::vec3 Rotation;
@@ -25,7 +26,7 @@ public:
 	Renderer* renderer;
 	Model* model;
 	void draw(Shader& shader, Light& light);
-	SceneObject(string modelPath);
+	SceneObject(string modelPath, string fallbackTexturePath);
 	~SceneObject();
 	Camera* sceneCamera;
 
@@ -68,9 +69,9 @@ void Scene::render()
 
 
 
-SceneObject::SceneObject(string modelPath) : Position(glm::vec3(0, 0, 0)), Scale(glm::vec3(1, 1, 1)), Rotation(glm::vec3(0, 0, 0))
+SceneObject::SceneObject(string modelPath, string fallbackTexturePath) : Position(glm::vec3(0, 0, 0)), Scale(glm::vec3(1, 1, 1)), Rotation(glm::vec3(0, 0, 0))
 {
-	model = new Model(modelPath);
+	model = new Model(modelPath, fallbackTexturePath);
 	renderer = new Renderer(*model);
 
 	//Position = glm::vec3(0, 0, 0);

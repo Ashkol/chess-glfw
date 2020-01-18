@@ -33,15 +33,33 @@ void Mesh::setupMesh()
 
 	glBindVertexArray(0);
 
-	TextureManager texManager;
+	/*TextureManager texManager;
 	Texture* tex = new Texture();
-	tex->id = texManager.loadTexture("Assets/Textures/checkerboard.png");
-	textures.push_back(*tex);
+	tex->id = texManager.loadTexture("Assets/Textures/container.png");
+	textures.push_back(*tex);*/
 }
 
 void Mesh::Draw(Shader shader)
 {
-	glBindTexture(GL_TEXTURE_2D, textures[0].id);
+	//glBindTexture(GL_TEXTURE_2D, textures[0].id);
+	//glActiveTexture(GL_TEXTURE0);
+
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+		// retrieve texture number (the N in diffuse_textureN)
+		std::string number;
+		std::string name = textures[i].type;
+		if (name == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (name == "texture_specular")
+			number = std::to_string(specularNr++);
+
+		shader.setFloat(("material." + name + number).c_str(), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
 	glActiveTexture(GL_TEXTURE0);
 
 	glBindVertexArray(VAO);

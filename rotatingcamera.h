@@ -9,7 +9,7 @@
 #include <iostream>
 #include "camera.h"
 
-const float DISTANCE = 5.0f;
+const float DISTANCE = 20.0f;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class RotatingCamera : public Camera

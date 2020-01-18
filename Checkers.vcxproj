@@ -176,6 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="connector.hpp" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="lighting.h" />

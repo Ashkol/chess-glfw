@@ -16,6 +16,7 @@
 #include "model.h"
 #include "utils.h"
 #include "visualizer.h"
+#include "connector.hpp"
 
 float vertices[] = { -0.5f, -0.8f, 0.0f,
 						1.0f, -0.5f, 0.0f,
@@ -31,7 +32,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void initializeCamera();
 GLFWwindow* initializeGLFWWindow();
-RotatingCamera camera(glm::vec3(0.0f, 0.0f, 20.0f));
+RotatingCamera camera(glm::vec3(0.0f, 10.0f, 20.0f));
 
 int main()
 {
@@ -40,6 +41,7 @@ int main()
 	{
 		return -1;
 	}
+	//ConnectToEngine((char*)"stockfish.exe");
 	/*unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");*/
 	//Cube board(&camera, texID);
 	initializeCamera();
@@ -59,8 +61,6 @@ int main()
 
 	Scene scene(camera);
 	Visualizer visualizer(scene);
-	
-
 
 	float previousTime = glfwGetTime();
 	int frameCount = 0;
@@ -68,30 +68,6 @@ int main()
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
-		//shader.use();
-		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-		//glm::mat4 view = camera.GetViewMatrix();
-		//glm::mat4 model = glm::mat4(1.0f);
-		//shader.setMat4("projection", projection);
-		//shader.setMat4("view", view);
-		//shader.setMat4("model", model);
-		//shader.setFloat("sample", 1);
-		//shader.setFloat("sampleCount", 1);
-		//shader.setFloat("textureWidth", 500);
-
-
-		//shader.setVec3("lightPos", glm::vec3(0, 3, 0));
-		//shader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
-		//shader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		//shader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		//shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		//shader.setFloat("material.shininess", 32.0f);
-		//shader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-		//shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
-		//shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		//shader.setVec3("viewPos", camera.Position);
-		//shader.use();
-
 
 
 		float currentTime = glfwGetTime();
@@ -112,10 +88,18 @@ int main()
 		//board.render(true);
 		//ourModel.draw(shader);
 		visualizer.render();
+
 		
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+
+		string from;
+		string to;
+		std::cin >> from;
+		std::cin >> to;
+		visualizer.makeMove(from, to);
 	}
 
 	glfwTerminate();
@@ -129,7 +113,7 @@ GLFWwindow* initializeGLFWWindow()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Checkers", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Checkers", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;

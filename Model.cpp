@@ -1,5 +1,5 @@
 #include "model.h"
-
+#include "texturemanager.h"
 
 void Model::draw(Shader shader)
 {
@@ -80,7 +80,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 
 		// process material
-	if (mesh->mMaterialIndex >= 0)
+	if (mesh->mMaterialIndex > 0)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		std::vector<Texture> diffuseMaps = loadMaterialTextures(material,
@@ -90,6 +90,24 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 			aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
+	else
+	{
+		std::cout << "fallback " << fallbackTexturePath << std::endl;
+		TextureManager texManager;
+		Texture* tex = new Texture();
+		tex->id = texManager.loadTexture(fallbackTexturePath.c_str());
+		textures.push_back(*tex);
+	}
+
+	// Add other textures
+	//if (mesh->mMaterialIndex == 0)
+	//{
+	//	TextureManager texManager;
+	//	Texture* tex = new Texture();
+	//	tex->id = texManager.loadTexture("Assets/Textures/container.png");
+	//	Texture* tex = new Texture()
+	//	textures.push_back(*tex);
+	//}
 
 	return Mesh(vertices, indices, textures);
 }
