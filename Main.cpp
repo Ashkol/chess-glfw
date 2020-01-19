@@ -28,7 +28,6 @@ float vertices[] = { -0.5f, -0.8f, 0.0f,
 };
 Shader* defaultShader;
 TextureManager texManager;
-float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -57,31 +56,14 @@ int main()
 	char from[3] = "??";
 	char to[3] = "??";
 
-
-
-
-	//ConnectToEngine((char*)"stockfish.exe");
-	/*unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");*/
-	//Cube board(&camera, texID);
 	initializeCamera();
-	//ObjectLoader* objLoader = new ObjectLoader();
-	//objLoader->load("C:\\Users\\adams\\Desktop\\cube.obj");
-
-	//uniform vec3 lightPos;
-	//uniform vec3 lightColor;
-	//uniform vec3 objectColor;
-
-
-	//Shader shader("default.vert", "defaultTex.frag");
 	Shader shader("lighting.vert", "lighting.frag");
-	//Model ourModel("C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj");
-
-
 
 	Scene scene(camera);
 	Visualizer visualizer(scene);
 
 	float previousTime = glfwGetTime();
+	float deltaTimePrevious = glfwGetTime();
 	int frameCount = 0;
 
 	// Game Loop
@@ -94,6 +76,8 @@ int main()
 		
 
 		float currentTime = glfwGetTime();
+		deltaTime = currentTime - deltaTimePrevious;
+		deltaTimePrevious = currentTime;
 		frameCount++;
 		if (currentTime - previousTime >= 1.0f)
 		{
@@ -108,11 +92,9 @@ int main()
 		// Rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//board.render(true);
-		//ourModel.draw(shader);
 		visualizer.render();
 
-		ImGui::Begin("Demo window");
+		ImGui::Begin("Move piece");
 		ImGui::InputText("From", from, sizeof(char) * 3);
 		ImGui::InputText("To", to, sizeof(char) * 3);
 		if (ImGui::Button("Move!"))
@@ -126,13 +108,6 @@ int main()
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-
-
-		/*string from;
-		string to;
-		std::cin >> from;
-		std::cin >> to;
-		visualizer.makeMove(from, to);*/
 	}
 
 	ImGui_ImplOpenGL3_Shutdown();

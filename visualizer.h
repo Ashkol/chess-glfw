@@ -30,8 +30,35 @@ Visualizer::Visualizer(Scene& scene) : scene(scene)
 void Visualizer::makeMove(string from, string to)
 {
 	game.movePiece(from, to);
-	getChessPiece(from)->Position = game.toPhysCoords(to);
-	game.printBoard();
+	SceneObject* chessPiece = getChessPiece(from);
+	if (chessPiece != NULL)
+	{
+		if (chessPiece->isMoving() == false)
+		{
+			chessPiece->move(game.toPhysCoords(to), 1.0f);
+			
+			SceneObject* chessPieceToRemove = getChessPiece(to);
+			if (chessPieceToRemove != NULL)
+			{
+				int deleteIndex = 0;
+				for (; deleteIndex < scene.sceneObjects.size(); deleteIndex++)
+				{
+					if (scene.sceneObjects[deleteIndex].boardCoords == to)
+						break;
+				}
+				scene.sceneObjects.erase(scene.sceneObjects.begin() + deleteIndex);
+				cout << "piece to delete cocords = " << chessPieceToRemove->boardCoords << endl;
+				//delete &chessPieceToRemove;
+				//_ASSERTE(_CrtCheckMemory());
+			}
+			chessPiece->boardCoords = to;
+
+			
+
+			game.printBoard();
+		}
+
+	}
 }
 
 SceneObject*  Visualizer::getChessPiece(string boardCoords)
@@ -159,6 +186,7 @@ void UpdateRenderedScene()
 
 void Visualizer::render()
 {
+	scene.update();
 	scene.render();
 }
 

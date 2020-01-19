@@ -2,9 +2,22 @@
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
 C:\Program Files (x86)\Microsoft Visual Studio\Libraries\Includes\glad\glad.h(32): message : see previous definition of 'APIENTRY'
   The contents of <filesystem> are only available with C++17 or later.
-C:\Users\adams\source\repos\Checkers\Checkers\scene.h(64,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\adams\source\repos\Checkers\Checkers\visualizer.h(39,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\adams\source\repos\Checkers\Checkers\scene.h(72,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\adams\source\repos\Checkers\Checkers\scene.h(80,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\adams\source\repos\Checkers\Checkers\game.h(77,11): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\adams\source\repos\Checkers\Checkers\game.h(78,11): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\adams\source\repos\Checkers\Checkers\visualizer.h(44,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\adams\source\repos\Checkers\Checkers\visualizer.h(66,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(84,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(96,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(182,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(85,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(97,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(185,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Checkers.vcxproj -> C:\Users\adams\source\repos\Checkers\Debug\Checkers.exe

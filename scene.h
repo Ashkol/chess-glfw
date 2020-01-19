@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "renderer.h"
 #include "lighting.h"
+#include "boost/signals2/signal.hpp"
 
 using namespace std;
 
@@ -29,9 +30,15 @@ public:
 	SceneObject(string modelPath, string fallbackTexturePath);
 	~SceneObject();
 	Camera* sceneCamera;
-
+	void move(glm::vec3 destination, float speed);
+	void update();
+	bool isToDestroy = false;
+	bool isMoving() { return _isMoving; }
 private:
-
+	bool _isMoving = false;
+	void moveInternal();
+	glm::vec3 destination;
+	float movementSpeed = 1.0f;
 };
 
 class Scene
@@ -41,6 +48,7 @@ public:
 	vector<Shader> shaders;
 	Camera& sceneCamera;
 	Light* light;
+	void update();
 	void render();
 	Scene(Camera& camera);
 	void addSceneObject(SceneObject& objetc);
@@ -59,6 +67,14 @@ void Scene::addSceneObject(SceneObject& object)
 	sceneObjects.push_back(object);
 }
 
+void Scene::update()
+{
+	for (int i = 0; i < sceneObjects.size(); i++)
+	{
+		sceneObjects[i].update();
+	}
+}
+
 void Scene::render()
 {
 	for (int i = 0; i < sceneObjects.size(); i++)
@@ -67,7 +83,36 @@ void Scene::render()
 	}
 }
 
+void SceneObject::move(glm::vec3 destination, float speed)
+{
+	this->destination = destination;
+	this->movementSpeed = speed;
+	_isMoving = true;
+}
 
+void SceneObject::update()
+{
+	if (_isMoving)
+		moveInternal();
+	if (isToDestroy)
+	{
+		delete(this);
+	}
+}
+
+void SceneObject::moveInternal()
+{
+	//cout << "Delta time = " << deltaTime << " Position " << Position.x << Position.y << Position.z << " Destination " << destination.x << destination .y << destination.z << endl;
+	if (glm::length(Position - destination)< movementSpeed * deltaTime)
+	{
+		Position = destination;
+		_isMoving = false;
+	}
+	else
+	{
+		Position += glm::normalize(destination - Position) * movementSpeed * deltaTime;
+	}
+}
 
 SceneObject::SceneObject(string modelPath, string fallbackTexturePath) : Position(glm::vec3(0, 0, 0)), Scale(glm::vec3(1, 1, 1)), Rotation(glm::vec3(0, 0, 0))
 {

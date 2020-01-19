@@ -22,7 +22,9 @@ public:
       6, 6, 6, 6, 6, 6, 6, 6,
       1, 2, 3, 4, 5, 3, 2, 1 };
     string toChessNotation(int x, int y);
+    string toChessNotation(glm::vec3 physCoords);
     int toBoardCoords(string coords);
+    int toBoardCoords(glm::vec3 physCoords);
     glm::vec3 toPhysCoords(int x, int y);
     glm::vec3 toPhysCoords(string coords);
     void movePiece(string from, string to);
@@ -67,6 +69,20 @@ int Game::toBoardCoords(string coords)
     int y = int(coords[1]) - 49;
     cout << "Coords: " << coords << "Board coords: " << x << " " << y << endl;
     return x * 10 + y;
+}
+
+// Physical coordinates to board coordinates
+int Game::toBoardCoords(glm::vec3 physCoords)
+{
+    int x = physCoords.x * 0.5f + 4.5f;
+    int y = physCoords.y * 0.5f + 4.5f;
+    return x * 10 + y;
+}
+
+// Physical coordinates to chess notation
+string Game::toChessNotation(glm::vec3 physCoords)
+{
+    return toChessNotation(toBoardCoords(physCoords)/ 10, toBoardCoords(physCoords) % 10);
 }
 
 glm::vec3 Game::toPhysCoords(int x, int y)
