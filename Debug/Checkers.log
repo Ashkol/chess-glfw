@@ -4,7 +4,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\Libraries\Includes\glad\glad.h(32
   The contents of <filesystem> are only available with C++17 or later.
 C:\Users\adams\source\repos\Checkers\Checkers\scene.h(64,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\adams\source\repos\Checkers\Checkers\visualizer.h(39,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(65,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(73,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(146,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(84,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(96,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adams\source\repos\Checkers\Checkers\Main.cpp(182,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Checkers.vcxproj -> C:\Users\adams\source\repos\Checkers\Debug\Checkers.exe

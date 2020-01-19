@@ -1,6 +1,6 @@
 # Blender v2.80 (sub 75) OBJ File: 'knight.blend'
 # www.blender.org
-mtllib kight.mtl
+mtllib knight.mtl
 o Cube.001
 v 0.700000 0.000000 0.700000
 v 0.193156 1.996934 0.100042

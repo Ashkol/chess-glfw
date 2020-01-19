@@ -101,7 +101,7 @@ void Visualizer::instantiateBoard()
 	//Black pieces
 	for (int i = 15; i >= 0; i--)
 	{
-		boardCoords = game.toChessNotation((i+48) % 8, (i + 48)  / 8);
+		boardCoords = game.toChessNotation((i+56) % 8, (i + 56)  / 8);
 
 		if (i == 0 || i == 7)
 		{
@@ -132,10 +132,11 @@ void Visualizer::instantiateBoard()
 		{
 			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\pawn.obj";
 			name = "Pawn";
+			boardCoords = game.toChessNotation((i + 40) % 8, (i + 40) / 8);
 		}
 
 		cout << boardCoords;
-		SceneObject sceneObject(gamePiecePath, "Assets/Textures/black.png");
+		SceneObject sceneObject(gamePiecePath, "Assets/Textures/red.png");
 		sceneObject.Name = "Black " + name;
 		sceneObject.boardCoords = boardCoords;
 		sceneObject.Position = glm::vec3(-7 + (i * 2 % 16), 0, (i / 8) * 2 - 7);

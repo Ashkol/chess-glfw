@@ -17,6 +17,9 @@
 #include "utils.h"
 #include "visualizer.h"
 #include "connector.hpp"
+#include "ExternalLibraries/ImGUI/imgui.h"
+#include "ExternalLibraries/ImGUI/imgui_impl_opengl3.h"
+#include "ExternalLibraries/ImGUI/imgui_impl_glfw.h"
 
 float vertices[] = { -0.5f, -0.8f, 0.0f,
 						1.0f, -0.5f, 0.0f,
@@ -41,6 +44,22 @@ int main()
 	{
 		return -1;
 	}
+
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	// Setup Platform/Renderer bindings
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init();
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	char from[3] = "??";
+	char to[3] = "??";
+
+
+
+
 	//ConnectToEngine((char*)"stockfish.exe");
 	/*unsigned int texID = texManager.loadTexture("Assets/Textures/checkerboard.png");*/
 	//Cube board(&camera, texID);
@@ -68,7 +87,11 @@ int main()
 	// Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
+		
 
 		float currentTime = glfwGetTime();
 		frameCount++;
@@ -89,19 +112,32 @@ int main()
 		//ourModel.draw(shader);
 		visualizer.render();
 
-		
+		ImGui::Begin("Demo window");
+		ImGui::InputText("From", from, sizeof(char) * 3);
+		ImGui::InputText("To", to, sizeof(char) * 3);
+		if (ImGui::Button("Move!"))
+		{
+			visualizer.makeMove(from, to);
+		}
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
 
-		string from;
+		/*string from;
 		string to;
 		std::cin >> from;
 		std::cin >> to;
-		visualizer.makeMove(from, to);
+		visualizer.makeMove(from, to);*/
 	}
 
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 	glfwTerminate();
 	return 0;
 }
