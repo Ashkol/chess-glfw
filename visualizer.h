@@ -83,7 +83,7 @@ SceneObject*  Visualizer::getChessPiece(string boardCoords)
 void Visualizer::instantiateBoard()
 {
 	std::string gamePiecePath = "";
-	std::string gameBoardPath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\cube.obj";
+	std::string gameBoardPath = "Assets/Models/cube.obj";
 	std::string name = "";
 	std::string boardCoords = "";
 	// White pieces
@@ -93,32 +93,32 @@ void Visualizer::instantiateBoard()
 
 		if (i == 8 || i == 15)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\rook.obj";
+			gamePiecePath = "Assets/Models/rook.obj";
 			name = "Rook";
 		}
 		else if (i == 9 || i == 14)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\knight.obj";
+			gamePiecePath = "Assets/Models/knight.obj";
 			name = "Knight";
 		}
 		else if (i == 10 || i == 13)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\bishop.obj";
+			gamePiecePath = "Assets/Models/bishop.obj";
 			name = "Bishop";
 		}
 		else if (i == 11)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\queen.obj";
+			gamePiecePath = "Assets/Models/queen.obj";
 			name = "Queen";
 		}
 		else if (i == 12)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\king.obj";
+			gamePiecePath = "Assets/Models//king.obj";
 			name = "King";
 		}
 		else
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\pawn.obj";
+			gamePiecePath = "Assets/Models/pawn.obj";
 			name = "Pawn";
 			boardCoords = game.toChessNotation((i+ 8) % 8, (i+8) / 8);
 		}
@@ -140,32 +140,32 @@ void Visualizer::instantiateBoard()
 
 		if (i == 0 || i == 7)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\rook.obj";
+			gamePiecePath = "Assets/Models/rook.obj";
 			name = "Rook";
 		}
 		else if (i == 1 || i == 6)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\knight.obj";
+			gamePiecePath = "Assets/Models/knight.obj";
 			name = "Knight";
 		}
 		else if (i == 2 || i == 5)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\bishop.obj";
+			gamePiecePath = "Assets/Models/bishop.obj";
 			name = "Bishop";
 		}
 		else if (i == 3)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\queen.obj";
+			gamePiecePath = "Assets/Models/queen.obj";
 			name = "Queen";
 		}
 		else if (i == 4)
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\king.obj";
+			gamePiecePath = "Assets/Models/king.obj";
 			name = "King";
 		}
 		else
 		{
-			gamePiecePath = "C:\\Users\\adams\\source\\repos\\Checkers\\Checkers\\Assets\\Models\\pawn.obj";
+			gamePiecePath = "Assets/Models/pawn.obj";
 			name = "Pawn";
 			boardCoords = game.toChessNotation((i + 40) % 8, (i + 40) / 8);
 		}
