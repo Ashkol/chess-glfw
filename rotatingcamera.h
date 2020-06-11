@@ -9,7 +9,9 @@
 #include <iostream>
 #include "camera.h"
 
+
 const float DISTANCE = 20.0f;
+
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class RotatingCamera : public Camera
@@ -47,8 +49,7 @@ public:
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime)
 	{
-		std::cout << "rotating camera" << std::endl;
-		float angularVelocity = SPEED * deltaTime * 10;
+		float angularVelocity = SPEED * deltaTime;
 		if (direction == FORWARD)
 		{
 			Distance -= SPEED * deltaTime;
@@ -94,44 +95,63 @@ public:
 	}
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
+	void ProcessMouseMovement(float xoffset, float yoffset, float deltaTime, GLboolean constrainPitch = true)
 	{
+		float angularVelocity = SPEED * deltaTime;
 		xoffset *= MouseSensitivity;
 		yoffset *= MouseSensitivity;
 
-		Yaw += xoffset;
-		Pitch += yoffset;
+		AngleZ += angularVelocity * xoffset;
+		Yaw += angularVelocity * xoffset;
+		Pitch += angularVelocity * yoffset;
 
-		// Make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (constrainPitch)
-		{
-			if (Pitch > 89.0f)
-				Pitch = 89.0f;
-			if (Pitch < -89.0f)
-				Pitch = -89.0f;
-		}
+		if (Distance < 1.0f)
+			Distance = 1.0f;
+		if (Pitch > 0.0f)
+			Pitch = 0.0f;
+		if (Pitch < -89.0f)
+			Pitch = -89.0f;
+
+		float x = glm::cos(glm::radians(AngleZ)) * Distance;
+		float z = glm::sin(glm::radians(AngleZ)) * Distance;
+		float y = glm::sin(glm::radians(-Pitch)) * Distance;
+		x *= glm::cos(glm::radians(-Pitch));
+		z *= glm::cos(glm::radians(-Pitch));
+		Position = glm::vec3(x, y, z);
+
+		//updateCameraVectors();
 
 		// Update Front, Right and Up Vectors using the updated Euler angles
 		updateCameraVectors();
 	}
 
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
-	void ProcessMouseScroll(float yoffset)
+	void ProcessMouseScroll(float yoffset, float deltaTime)
 	{
-		if (Zoom >= 1.0f && Zoom <= 45.0f)
-			Zoom -= yoffset;
-		if (Zoom <= 1.0f)
-			Zoom = 1.0f;
-		if (Zoom >= 45.0f)
-			Zoom = 45.0f;
+
+		if (yoffset > 0)
+		{
+			std::cout << Distance;
+			Distance -= SPEED * deltaTime * 50;
+		}
+		if (yoffset < 0)
+		{
+			Distance += SPEED * deltaTime * 50;
+		}
+
+		float x = glm::cos(glm::radians(AngleZ)) * Distance;
+		float z = glm::sin(glm::radians(AngleZ)) * Distance;
+		float y = glm::sin(glm::radians(-Pitch)) * Distance;
+		x *= glm::cos(glm::radians(-Pitch));
+		z *= glm::cos(glm::radians(-Pitch));
+		Position = glm::vec3(x, y, z);
+		updateCameraVectors();
 	}
 
 private:
 	// Calculates the front vector from the Camera's (updated) Euler Angles
 	void updateCameraVectors()
 	{
-		std::cout << "Camera position = " << Position.b << std::endl;
-
 		// Calculate the new Front vector
 		glm::vec3 front;
 		front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));

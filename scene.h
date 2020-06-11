@@ -138,9 +138,4 @@ void SceneObject::draw(Shader& shader, Light& light)
 	renderer->render(*sceneCamera, shader, light, Position, Scale, Rotation);
 }
 
-//class Component
-//{
-//
-//};
-
 #endif

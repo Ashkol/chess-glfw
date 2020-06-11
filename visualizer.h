@@ -68,6 +68,14 @@ SceneObject*  Visualizer::getChessPiece(string boardCoords)
 		if (scene.sceneObjects[i].boardCoords == boardCoords)
 			return &scene.sceneObjects[i];
 	}
+	// In case coords are given in wrong order
+	//std::reverse(boardCoords.begin(), boardCoords.end());
+	//
+	//for (int i = 0; i < scene.sceneObjects.size(); i++)
+	//{
+	//	if (scene.sceneObjects[i].boardCoords == boardCoords)
+	//		return &scene.sceneObjects[i];
+	//}
 	cout << "Chess piece not found in such coordinates" << endl;
 	return NULL;
 }
@@ -164,7 +172,7 @@ void Visualizer::instantiateBoard()
 
 		cout << boardCoords;
 		SceneObject sceneObject(gamePiecePath, "Assets/Textures/red.png");
-		sceneObject.Name = "Black " + name;
+		sceneObject.Name = "Red " + name;
 		sceneObject.boardCoords = boardCoords;
 		sceneObject.Position = glm::vec3(-7 + (i * 2 % 16), 0, (i / 8) * 2 - 7);
 		scene.addSceneObject(sceneObject);
@@ -173,9 +181,9 @@ void Visualizer::instantiateBoard()
 	}
 
 	// Board
-	SceneObject sceneObject(gameBoardPath, "Assets/Textures/checkerboard.png");
+	SceneObject sceneObject(gameBoardPath, "Assets/Textures/chessboard.png");
 	sceneObject.Position = glm::vec3(0, -1, 0);
-	sceneObject.Scale = glm::vec3(8, 1, 8);
+	sceneObject.Scale = glm::vec3(10, 1, 10);
 	scene.addSceneObject(sceneObject);
 }
 

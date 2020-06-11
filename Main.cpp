@@ -29,16 +29,21 @@ float vertices[] = { -0.5f, -0.8f, 0.0f,
 Shader* defaultShader;
 TextureManager texManager;
 float lastFrame = 0.0f; // Time of last frame
+bool firstMouse = true; 
+float lastX, lastY;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
-void initializeCamera();
+void processKeyboardInput(GLFWwindow* window);
+void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+void mouseCallback(GLFWwindow* window, double xpos, double ypos);
 GLFWwindow* initializeGLFWWindow();
 RotatingCamera camera(glm::vec3(0.0f, 10.0f, 20.0f));
 
 int main()
 {
 	GLFWwindow* window = initializeGLFWWindow();
+	glfwSetScrollCallback(window, scrollCallback);
+	glfwSetCursorPosCallback(window, mouseCallback);
 	if (window == NULL)
 	{
 		return -1;
@@ -56,7 +61,6 @@ int main()
 	char from[3] = "??";
 	char to[3] = "??";
 
-	initializeCamera();
 	Shader shader("lighting.vert", "lighting.frag");
 
 	Scene scene(camera);
@@ -73,8 +77,6 @@ int main()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		
-
 		float currentTime = glfwGetTime();
 		deltaTime = currentTime - deltaTimePrevious;
 		deltaTimePrevious = currentTime;
@@ -88,7 +90,7 @@ int main()
 		}
 
 		// Input
-		processInput(window);
+		processKeyboardInput(window);
 		// Rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -149,31 +151,51 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window)
+void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	camera.ProcessMouseScroll(yoffset, deltaTime);
+}
+
+void processKeyboardInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	float currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
+
 
 	// Processing keyboard camera movement
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_9) == GLFW_PRESS)
 		camera.ProcessKeyboard(FORWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_3) == GLFW_PRESS)
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_4) == GLFW_PRESS)
 		camera.ProcessKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_6) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_2) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWN, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_KP_8) == GLFW_PRESS)
 		camera.ProcessKeyboard(UP, deltaTime);
 }
 
-void initializeCamera()
+void mouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	//camera
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; 
+
+
+	lastX = xpos;
+	lastY = ypos;
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT))
+	{ 
+		camera.ProcessMouseMovement(xoffset, yoffset, deltaTime);
+	}
 }
